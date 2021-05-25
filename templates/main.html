@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    * {
+    box-sizing: border-box;
+  }
+  
+  /* Add a gray background color with some padding */
+  body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+  }
+  
+  /* Header/Blog Title */
+  .header {
+    font-size: 40px;
+    text-align: center;
+    color: rgb(255, 0, 0);
+    padding: 30px;
+    background: url("/images/tlo.jpg");
+  }
+
+  /* Create two unequal columns that floats next to each other */
+  /* Left column */
+  .leftcolumn {
+    float: left;
+    width: 75%;
+  }
+
+  /* Right column */
+  .rightcolumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+  }
+  
+  /* Fake image */
+  .fakeimg {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+  }
+  .image{
+      max-width: 100%;
+      max-height: 500px;
+  }
+  /* Add a card effect for articles */
+  .card {
+     background-color: white;
+     padding: 20px;
+     margin-top: 20px;
+     border-style: ridge;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  
+  .button:hover {background-color: #3e8e41}
+  
+  .button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+  
+  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+  }
+  </style>
+  
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Podzespoły Komputerowe</title>
+</head>
+<body>
+{% load static %}
+<div class="header">
+    <h1>Podzespoły Komputerowe</h1>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    {% for entry in news %}
+    <div class="card">
+      <h2>{{entry.tytul}}</h2>
+      <h5 style="color: #7093DB">{{entry.uzytkownik.username}}, {{entry.data}}</h5>
+      {% if entry.image %}
+      <div class="fakeimg">
+        <img class="image" src="{{STATIC_URL}}{{entry.image}}">
+      </div>
+      {% endif %}
+      <p>{{entry.tresc}}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+        {% if user.is_authenticated %}
+          <h3>Cześć {{user.username}} !!!</h3>
+          <form action="profil">
+            <input type="submit" class="button" value="Profil" />
+            <input type="submit" formaction="logout" class="button" value="Wyloguj się" />
+          </form>
+        {% else %}
+        <h3>Logowanie/Rejestracja</h3>
+        <form action="log">
+          <input type="submit" class="button" value="Zaloguj się" />
+          <input type="submit" class="button" formaction="register" value = "Zarejestruj się" />
+        </form>
+        {% endif %}
+    </div>
+    <div class="card">
+      <h3>Nowy wpis</h3>
+      {% if user.is_authenticated %}
+        <form action="add">
+          <input type="submit" class="button" value="Dodaj" />
+        </form>
+        {% else %}
+          <p>Sekcja widoczna tylko dla zalogowanych użytkowników</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h4>Podzespoły komputerowe 2021</h4>
+</div>
+
+</body>
+</html>

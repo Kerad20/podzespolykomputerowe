@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    * {
+    box-sizing: border-box;
+  }
+
+  /* Add a gray background color with some padding */
+  body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+  }
+
+  /* Header/Blog Title */
+  .header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: rgb(18, 119, 214);
+    border-radius: 25px;
+  }
+
+  /* Create two unequal columns that floats next to each other */
+  /* Left column */
+  .leftcolumn {
+    float: left;
+    width: 50%;
+  }
+
+  /* Right column */
+  .rightcolumn {
+    float: left;
+    width: 50%;
+    padding-left: 20px;
+  }
+
+  /* Add a card effect for articles */
+  .card {
+     background-color: white;
+     padding: 20px;
+     margin-top: 20px;
+     border-radius: 25px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+
+  .button:hover {background-color: #3e8e41}
+
+  .button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  p{
+    font-weight: bold;
+    color: dodgerblue;
+  }
+
+  </style>
+<head>
+    <title>Profil użytkownika</title>
+</head>
+<body>
+    <div class="header">
+      <h2>Profil</h2>
+    </div>
+
+    <div>
+        <div class="leftcolumn">
+            <div class="card">
+                <h2>Dane Użytkownika</h2>
+                <p>Nazwa Użytkownika: {{user.username}}</p>
+                <p>Imię: {{user.first_name}}</p>
+                <p>Nazwisko: {{user.last_name}}</p>
+                <p>e-mail: {{user.email}}</p>
+            </div>
+        </div>
+        <div class="rightcolumn">
+            <div class="card">
+                <h2>Ostatnia aktywność</h2>
+                {% for entry in news %}
+                {% if entry.uzytkownik == user %}
+                    <p>{{entry.tytul}} - {{entry.data}}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
