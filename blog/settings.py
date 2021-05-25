@@ -123,6 +123,9 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 STATIC_URL = '/images/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'images')
+]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
