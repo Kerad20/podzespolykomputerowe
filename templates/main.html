@@ -118,7 +118,7 @@
       <h5 style="color: #7093DB">{{entry.uzytkownik.username}}, {{entry.data}}</h5>
       {% if entry.image %}
       <div class="fakeimg">
-        <img class="image" src="{{STATIC_URL}}{{entry.image}}">
+        <img class="image" src="{{entry.image.url}}">
       </div>
       {% endif %}
       <p>{{entry.tresc}}</p>
